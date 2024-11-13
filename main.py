@@ -7,11 +7,12 @@ class HandTracker():
         self.camera_capture = cv2.VideoCapture(0)
         self.mp_hands = mp.solutions.hands
         self.mp_draw = mp.solutions.drawing_utils
+        self.mp_draw_style = mp.solutions.drawing_styles
 
-        self.tracking(self.camera_capture, self.mp_draw)
+        self.tracking(self.camera_capture, self.mp_draw, self.mp_draw_style)
     
-    def tracking(self, cam, draw):
-        with self.mp_hands.Hands() as hands:
+    def tracking(self, cam, draw, style):
+        with self.mp_hands.Hands(min_detection_confidence=0.75) as hands:
             while True:
                 # Error Check
                 success, captured_img = cam.read()
@@ -29,8 +30,10 @@ class HandTracker():
                     for hand_landmarks in result_frames.multi_hand_landmarks:
                         draw.draw_landmarks(img_RGB,
                                             hand_landmarks,
-                                            self.mp_hands.HAND_CONNECTIONS)
-                # Outputs Image's to Window (as live video)
+                                            self.mp_hands.HAND_CONNECTIONS,
+                                            style.get_default_hand_landmarks_style(),
+                                            style.get_default_hand_connections_style())
+                # Outputs Inverted Image's to Window (as live video)
                 cv2.imshow('Output', cv2.flip(img_RGB, 1))
                 # Closes App Once "X" Has Been Hit
                 key_code = cv2.waitKey(1)
