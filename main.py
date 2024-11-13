@@ -9,7 +9,8 @@ class HandTracker():
         self.mpdraw = mp.solutions.drawing_utils
 
         self.tracking(self.camera_capture)
-        
+    
+    # Should Be Output tbf
     def tracking(self, cam):
         while True:
             ret, img = cam.read()
@@ -23,7 +24,7 @@ class HandTracker():
             cv2.imshow('img', img_RGB)
             if cv2.waitKey(1) == ord('f'):
                 break
-
+        
         cam.release()
         cv2.destroyAllWindows()
     
