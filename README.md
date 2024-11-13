@@ -1,3 +1,4 @@
+**COMING:**
 - 0.4: Hand Landmarks Coordinates
 - 0.5: Improved Hand Tracking and Overlay Style Changes
 - 0.6: Finger Counter (1-10)
