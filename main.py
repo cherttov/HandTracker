@@ -11,6 +11,8 @@ class HandTracker():
 
         self.tracking(self.camera_capture, self.mp_draw, self.mp_draw_style)
     
+     
+
     def tracking(self, cam, draw, style):
         with self.mp_hands.Hands(min_detection_confidence=0.75) as hands:
             while True:
@@ -20,7 +22,7 @@ class HandTracker():
                     print("error")
                     break
                 # Converts and Saves images
-                img_RGB = cv2.cvtColor(captured_img, cv2.COLOR_BGR2RGB) # for some reason BGR2BGRA works incorrectly
+                img_RGB = cv2.cvtColor(captured_img, cv2.COLOR_BGR2RGB)
                 result_frames = hands.process(img_RGB)
                 # Converts Back to "RGB" For Human Eyes
                 img_RGB.flags.writeable = True
@@ -33,6 +35,7 @@ class HandTracker():
                                             self.mp_hands.HAND_CONNECTIONS,
                                             style.get_default_hand_landmarks_style(),
                                             style.get_default_hand_connections_style())
+                # self.hand_tracking(img_RGB, captured_img, self.mp_draw, self.mp_draw_style)
                 # Outputs Inverted Image's to Window (as live video)
                 cv2.imshow('Output', cv2.flip(img_RGB, 1))
                 # Closes App Once "X" Has Been Hit
